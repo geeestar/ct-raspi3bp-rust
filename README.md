@@ -1,4 +1,4 @@
-#  Cross-compiling Toolchain environment for Raspberry 3 B+ in Rust
+#  Cross-compiling Toolchain environment for Raspberry Pi 3 B+ in Rust
 
 Run `docker build -t raspi3bp-rust .`, then `docker run -it --rm raspi3bp-rust`. The compiled binary will be found at **/root/hello/target/../debug/hello** in the container. Copy it to an raspi3b+ and run it. It should say "Hello, world!".
 
