@@ -42,4 +42,4 @@ RUN cargo build --target=armv7-unknown-linux-gnueabihf
 RUN cargo build --target=aarch64-unknown-linux-gnu
 
 WORKDIR /root
-ENTRYPOINT /usr/bin/fish
+ENTRYPOINT /bin/bash
