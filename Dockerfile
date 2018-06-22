@@ -1,5 +1,7 @@
 FROM ubuntu:bionic
 MAINTAINER Jonir Rings
+# shared data
+VOLUME ["/data"]
 
 # change the mirror to USTC (only for china mainland)
 RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
@@ -17,10 +19,13 @@ ENV USER root
 RUN curl https://sh.rustup.rs -sSf > rustup.sh
 RUN chmod +x rustup.sh
 RUN /bin/sh -c './rustup.sh -y'
-RUN echo 'export PATH="$HOME/.cargo/bin:$PATH"' > /root/.bashrc
+RUN echo 'export PATH="$HOME/.cargo/bin:$PATH"' > /root/.profile
 # change the rust mirror to USTC (only for china mainland)
 RUN echo 'export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static' >> /root/.profile
 RUN echo 'export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup' >> /root/.profile
+
+# load env
+RUN source /root/.profile
 
 # install cross-compiled standard crates
 RUN /root/.cargo/bin/rustup target add armv7-unknown-linux-gnueabihf aarch64-unknown-linux-gnu
