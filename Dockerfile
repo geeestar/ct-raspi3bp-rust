@@ -25,9 +25,6 @@ RUN echo 'export PATH="$HOME/.cargo/bin:$PATH"' > /root/.profile
 RUN echo 'export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static' >> /root/.profile
 RUN echo 'export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup' >> /root/.profile
 
-# load env
-RUN source /root/.profile
-
 # install cross-compiled standard crates
 RUN /root/.cargo/bin/rustup target add armv7-unknown-linux-gnueabihf aarch64-unknown-linux-gnu
 
@@ -48,4 +45,4 @@ RUN cargo build --target=armv7-unknown-linux-gnueabihf
 RUN cargo build --target=aarch64-unknown-linux-gnu
 
 WORKDIR /root
-ENTRYPOINT /bin/bash
+CMD ["bash"]
