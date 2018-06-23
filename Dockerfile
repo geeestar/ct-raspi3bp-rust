@@ -11,8 +11,11 @@ RUN apt-get update --fix-missing
 RUN apt-get install -y curl fish vim
 
 # install target toolchain
-RUN apt-get install -y build-essential gcc-arm-linux-gnueabihf binutils-arm-linux-gnueabi \
-gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu
+RUN apt-get install -y build-essential gdb
+RUN apt-get install -y gcc-arm-linux-gnueabihf
+RUN apt-get install -y binutils-arm-linux-gnueabihf
+RUN apt-get install -y gcc-aarch64-linux-gnu
+RUN apt-get install -y binutils-aarch64-linux-gnu
 
 # install Rust
 WORKDIR /root
