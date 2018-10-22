@@ -8,25 +8,22 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 RUN apt-get update --fix-missing
 
 # general dependencies
-RUN apt-get install -y curl fish vim git
+RUN apt-get install -y curl git
 
 # install target toolchain
-RUN apt-get install -y build-essential gdb
-RUN apt-get install -y gcc-arm-linux-gnueabihf
-RUN apt-get install -y binutils-arm-linux-gnueabihf
-RUN apt-get install -y gcc-aarch64-linux-gnu
-RUN apt-get install -y binutils-aarch64-linux-gnu
+RUN apt-get install -y gcc-arm-linux-gnueabihf binutils-arm-linux-gnueabihf
+RUN apt-get install -y gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu
 
-# set root .profile
+# set root .profile for shell
 WORKDIR /root
 ENV USER root
 RUN echo 'export PATH="$HOME/.cargo/bin:$PATH"' > /root/.profile
 # change the rust mirror to USTC (only for china mainland)
 RUN echo 'export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static' >> /root/.profile
 RUN echo 'export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup' >> /root/.profile
-# reload profile
-WORKDIR /root
-ENV USER root
+# change runtime mirrot to USTC (only for china mainland)
+ENV RUSTUP_DIST_SERVER https://mirrors.ustc.edu.cn/rust-static
+ENV RUSTUP_UPDATE_ROOT https://mirrors.ustc.edu.cn/rust-static/rustup
 # install Rust
 RUN curl https://sh.rustup.rs -sSf > rustup.sh
 RUN chmod +x rustup.sh
